@@ -7,6 +7,37 @@
         <viewmodels:CoffeeEquipmentViewModel />
     </ContentPage.BindingContext>
     <StackLayout>
-        
+        <ListView BackgroundColor="Transparent" ItemsSource="{Binding Coffee}"
+                  HasUnevenRows="True" SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Frame CornerRadius="20" HasShadow="True">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Image}" WidthRequest="60" />
+                                    <StackLayout VerticalOptions="Center">
+                                        <Label FontSize="Large" Text="{Binding Name}"
+                                               VerticalOptions="Center" />
+                                        <Label FontSize="Large" Text="{Binding Roaster}"
+                                               VerticalOptions="Center" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal">
+                    <Label HorizontalOptions="Center" Text="Coffee of the World" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.Footer>
+                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                    <Button Text="Load More" />
+                </StackLayout>
+            </ListView.Footer>
+        </ListView>
     </StackLayout>
 </ContentPage>

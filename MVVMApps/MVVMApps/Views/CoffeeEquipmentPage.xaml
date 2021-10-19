@@ -6,10 +6,7 @@
     <ContentPage.BindingContext>
         <viewmodels:CoffeeEquipmentViewModel />
     </ContentPage.BindingContext>
-    <Grid RowDefinitions="*,Auto,Auto,*">
-        <Label Grid.Row="1" HorizontalOptions="Center"
-               FontSize="Large" Text="{Binding CountDisplay}" />
-        <Button Grid.Row="2" Text="Click Me" 
-                Command="{Binding IncreaseCount}" />
-    </Grid>
+    <StackLayout>
+        
+    </StackLayout>
 </ContentPage>

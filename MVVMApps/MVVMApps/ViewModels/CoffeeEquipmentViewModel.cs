@@ -1,49 +1,41 @@
-﻿using System;
+﻿using MVVMApps.Shared.Models;
+using MvvmHelpers;
+using MvvmHelpers.Commands;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MVVMApps.ViewModels
 {
-    public class CoffeeEquipmentViewModel : BindableObject
+    public class CoffeeEquipmentViewModel : ViewModelBase
     {
-        public ICommand IncreaseCount { get; }
+        public ObservableRangeCollection<Coffee> Coffee { get; set; }
+
+        public AsyncCommand RefreshCommand { get; }
+
         public CoffeeEquipmentViewModel()
         {
-            IncreaseCount = new Command(OnIncrease);
+            Title = "List Of Coffee";
+            Coffee = new ObservableRangeCollection<Coffee>();
+            var image = "https://www.yesplz.coffee/app/uploads/2020/11/emptybag-min.png";
+
+            Coffee.Add(new Coffee { Roaster = "Dark Roasted", Name = "Italian Roast", Image = image });
+            Coffee.Add(new Coffee { Roaster = "Medium Roasted", Name = "Columbia Roast", Image = image });
+            Coffee.Add(new Coffee { Roaster = "Light Roasted", Name = "Toraja Peaberry", Image = image });
+            Coffee.Add(new Coffee { Roaster = "Dark Roasted", Name = "Tiwus", Image = image });
+            Coffee.Add(new Coffee { Roaster = "Medium Roasted", Name = "Pike Market Roast", Image = image });
+
+            RefreshCommand = new AsyncCommand(Refresh);
         }
 
-        int count = 0;
-        private string countDisplay = "Click Me";
-        public string CountDisplay
+        private async Task Refresh()
         {
-            get { return countDisplay; }
-            set
-            {
-                if (value == countDisplay)
-                    return;
-                countDisplay = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string firstName;
-        public string FirstName
-        {
-            get { return firstName; }
-            set {
-                if (value == FirstName)
-                    return;
-                firstName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private void OnIncrease()
-        {
-            count++;
-            CountDisplay = $"Anda mengklik {count} kali";
+            IsBusy = true;
+            await Task.Delay(2000);
+            IsBusy = false;
         }
     }
 }

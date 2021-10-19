@@ -15,30 +15,6 @@ namespace MVVMApps.Views
         public CoffeeEquipmentPage()
         {
             InitializeComponent();
-            IncreaseCount = new Command(OnIncrease);
-            BindingContext = this;
         }
-
-        private void OnIncrease()
-        {
-            count++;
-            CountDisplay = $"Anda mengklik {count} kali";
-        }
-
-        public ICommand IncreaseCount { get; }
-        int count = 0;
-        private string countDisplay= "Click Me"; 
-        public string CountDisplay
-        {
-            get { return countDisplay; }
-            set {
-                if (value == countDisplay)
-                    return;
-                countDisplay = value;
-                OnPropertyChanged();
-            }
-        }   
-
-       
     }
 }

@@ -5,7 +5,7 @@
     <Grid RowDefinitions="*,Auto,Auto,*">
         <Label Grid.Row="1" HorizontalOptions="Center"
                FontSize="Large" Text="{Binding CountDisplay}" />
-        <Button x:Name="btnCount" Grid.Row="2" Text="Click Me" 
-                Clicked="btnCount_Clicked" />
+        <Button Grid.Row="2" Text="Click Me" 
+                Command="{Binding IncreaseCount}" />
     </Grid>
 </ContentPage>

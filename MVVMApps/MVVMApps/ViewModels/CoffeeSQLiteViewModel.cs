@@ -38,9 +38,26 @@ namespace MVVMApps.ViewModels
             throw new NotImplementedException();
         }
 
-        private Task Add()
+        private async Task Add()
         {
-            throw new NotImplementedException();
+            var name = await App.Current.MainPage.DisplayPromptAsync("Name", "Coffee Name");
+            var roaster = await App.Current.MainPage.DisplayPromptAsync("Roaster", "Coffee Roaster");
+            try
+            {
+                var newCoffee = new Coffee
+                {
+                    Name = name,
+                    Roaster = roaster
+                };
+                await CoffeeSQLiteService.AddCoffee(newCoffee);
+                await App.Current.MainPage.DisplayAlert("Keterangan", 
+                    "Data Berhasil Ditambah", "OK");
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Keterangan",
+                    $"Error: {ex.Message}", "OK");
+            }
         }
 
         private async Task Refresh()

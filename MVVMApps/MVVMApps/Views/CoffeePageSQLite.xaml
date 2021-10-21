@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MVVMApps.Views.CoffeePageSQLite"
+             xmlns:viewmodels="clr-namespace:MVVMApps.ViewModels" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Title="{Binding Title}"
+             x:Name="CoffeePage">
+    <ContentPage.BindingContext>
+        <viewmodels:CoffeeSQLiteViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Order="Secondary" Command="{Binding AddCommand}" />
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <ListView 
+                  BackgroundColor="Transparent" 
+                  ItemsSource="{Binding Coffee}"
+                  HasUnevenRows="True" 
+                  SeparatorVisibility="None"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsBusy,Mode=OneWay}"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  RefreshControlColor="Red">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <StackLayout>
+                                <Frame CornerRadius="20" HasShadow="True">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="{Binding Image}" WidthRequest="60" />
+                                        <StackLayout VerticalOptions="Center">
+                                            <Label FontSize="Large" Text="{Binding Name}"
+                                               VerticalOptions="Center" />
+                                            <Label FontSize="Large" Text="{Binding Roaster}"
+                                               VerticalOptions="Center" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal">
+                    <Label HorizontalOptions="Center" FontSize="Medium" Text="Coffee of the World" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.Footer>
+                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                    <Button Text="Load More" />
+                </StackLayout>
+            </ListView.Footer>
+        </ListView>
+    </StackLayout>
+</ContentPage>

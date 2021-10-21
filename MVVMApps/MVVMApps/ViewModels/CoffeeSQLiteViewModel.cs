@@ -52,6 +52,7 @@ namespace MVVMApps.ViewModels
                 await CoffeeSQLiteService.AddCoffee(newCoffee);
                 await App.Current.MainPage.DisplayAlert("Keterangan", 
                     "Data Berhasil Ditambah", "OK");
+                await Refresh();
             }
             catch (Exception ex)
             {

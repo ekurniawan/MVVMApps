@@ -14,11 +14,14 @@
             <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing" Command="{Binding RefreshCommand}" />
+    </ContentPage.Behaviors>
     <StackLayout>
         <StackLayout Orientation="Horizontal">
             <Button Text="Add Coffee" Command="{Binding AddCommand}" />
         </StackLayout>
-        <ListView 
+        <ListView
                   BackgroundColor="Transparent" 
                   ItemsSource="{Binding Coffee}"
                   HasUnevenRows="True" 

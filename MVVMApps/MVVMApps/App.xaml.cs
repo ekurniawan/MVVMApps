@@ -12,7 +12,7 @@ namespace MVVMApps
         public App()
         {
             InitializeComponent();
-            MainPage = new CoffeePageSQLite();
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()

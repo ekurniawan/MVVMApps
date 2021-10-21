@@ -40,6 +40,8 @@ namespace MVVMApps.ViewModels
             RefreshCommand = new AsyncCommand(Refresh);
             FavoriteCommand = new AsyncCommand<Coffee>(Favorite);
             SelectedCommand = new AsyncCommand<Coffee>(Selected);
+
+           
         }
 
         private async Task Selected(Object args)

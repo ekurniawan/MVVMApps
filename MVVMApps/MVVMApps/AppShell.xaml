@@ -79,6 +79,24 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
 
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <StackLayout Padding="10">
+                <StackLayout Padding="5" Orientation="Horizontal">
+                    <Image Source="icon_feed.png" HorizontalOptions="Start" WidthRequest="60" />
+                    <Label Text="Coffee Apps" FontSize="Medium" />
+                </StackLayout>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <FlyoutItem Title="Coffee SQL" Icon="icon_about.png">
+        <ShellContent Route="CoffeeSQLPage" ContentTemplate="{DataTemplate local:CoffeePageSQLite}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Coffee" Icon="icon_about.png">
+        <ShellContent Route="CoffeePage" ContentTemplate="{DataTemplate local:CoffeeEquipmentPage}" />
+    </FlyoutItem>
+
     <!-- <FlyoutItem Title="Browse" Icon="icon_feed.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem> -->

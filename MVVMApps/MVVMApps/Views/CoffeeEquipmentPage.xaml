@@ -30,17 +30,23 @@
                                       CommandParameter="{Binding .}"/>
                         </ViewCell.ContextActions>
                         <Grid Padding="10">
-                            <Frame CornerRadius="20" HasShadow="True">
-                                <StackLayout Orientation="Horizontal">
-                                    <Image Source="{Binding Image}" WidthRequest="60" />
-                                    <StackLayout VerticalOptions="Center">
-                                        <Label FontSize="Large" Text="{Binding Name}"
+                            <StackLayout>
+                                <Frame CornerRadius="20" HasShadow="True">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="{Binding Image}" WidthRequest="60" />
+                                        <StackLayout VerticalOptions="Center">
+                                            <Label FontSize="Large" Text="{Binding Name}"
                                                VerticalOptions="Center" />
-                                        <Label FontSize="Large" Text="{Binding Roaster}"
+                                            <Label FontSize="Large" Text="{Binding Roaster}"
                                                VerticalOptions="Center" />
+                                        </StackLayout>
                                     </StackLayout>
-                                </StackLayout>
-                            </Frame>
+                                </Frame>
+                                <Button Text="Favorite" 
+                                        Command="{Binding Source={RelativeSource 
+                                        AncestorType={x:Type viewmodels:CoffeeEquipmentViewModel}},Path=FavoriteCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </StackLayout>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

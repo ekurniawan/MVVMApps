@@ -8,9 +8,16 @@
         <viewmodels:CoffeeEquipmentViewModel />
     </ContentPage.BindingContext>
     <StackLayout>
-        <ListView BackgroundColor="Transparent" ItemsSource="{Binding CoffeeGroups}"
-                  HasUnevenRows="True" SeparatorVisibility="None"
-                  IsGroupingEnabled="True" GroupDisplayBinding="{Binding Key}">
+        <ListView BackgroundColor="Transparent" 
+                  ItemsSource="{Binding CoffeeGroups}"
+                  HasUnevenRows="True" 
+                  SeparatorVisibility="None"
+                  IsGroupingEnabled="True" 
+                  GroupDisplayBinding="{Binding Key}"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsBusy,Mode=OneWay}"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  RefreshControlColor="Red">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

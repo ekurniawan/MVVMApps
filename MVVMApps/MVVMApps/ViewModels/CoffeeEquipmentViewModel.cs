@@ -18,6 +18,7 @@ namespace MVVMApps.ViewModels
 
         public AsyncCommand RefreshCommand { get; }
         public AsyncCommand<Coffee> FavoriteCommand { get; set; }
+        public AsyncCommand<Coffee> SelectedCommand { get; set; }
 
         public CoffeeEquipmentViewModel()
         {
@@ -38,6 +39,16 @@ namespace MVVMApps.ViewModels
 
             RefreshCommand = new AsyncCommand(Refresh);
             FavoriteCommand = new AsyncCommand<Coffee>(Favorite);
+            SelectedCommand = new AsyncCommand<Coffee>(Selected);
+        }
+
+        private async Task Selected(Object args)
+        {
+            var coffee = args as Coffee;
+            if (coffee == null)
+                return;
+            SelectedCoffee = null;
+            await Application.Current.MainPage.DisplayAlert("Favorite", coffee.Name, "OK");          
         }
 
         private async Task Favorite(Coffee coffee)
@@ -48,12 +59,13 @@ namespace MVVMApps.ViewModels
         }
 
         
-        private Coffee previousSelected;
+        //private Coffee previousSelected;
         private Coffee selectedCoffee;
         public Coffee SelectedCoffee
         {
             get => selectedCoffee;
-            set
+            set => SetProperty(ref selectedCoffee, value);
+            /*set
             {
                 if (value != null)
                 {
@@ -63,7 +75,7 @@ namespace MVVMApps.ViewModels
                 }
                 selectedCoffee = value;
                 OnPropertyChanged();
-            }
+            }*/
         }
 
 

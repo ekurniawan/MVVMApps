@@ -8,7 +8,9 @@
         <viewmodels:CoffeeEquipmentViewModel />
     </ContentPage.BindingContext>
     <StackLayout>
-        <ListView BackgroundColor="Transparent" 
+        <ListView 
+                  SelectedItem="{Binding SelectedCoffee,Mode=TwoWay}"
+                  BackgroundColor="Transparent" 
                   ItemsSource="{Binding CoffeeGroups}"
                   HasUnevenRows="True" 
                   SeparatorVisibility="None"

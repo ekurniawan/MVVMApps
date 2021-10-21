@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MVVMApps.Views.AddCofeePageSQLite"
+             Title="{Binding Title}"
+             xmlns:viewmodels="clr-namespace:MVVMApps.ViewModels"
+             Shell.PresentationMode="Modal">
+    <ContentPage.BindingContext>
+        <viewmodels:AddCoffeeSQLiteViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Name :" />
+            <Entry Text="{Binding Name}" />
+            <Label Text="Roaster :" />
+            <Entry Text="{Binding Roaster}" />
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+            <Button Text="Save" Padding="20,0"
+                    HorizontalOptions="Center" VerticalOptions="Center"
+                    IsVisible="{Binding IsNotBusy}" Command="{Binding SaveCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,11 +1,13 @@
 ﻿using MVVMApps.Services;
 using MVVMApps.Shared.Models;
+using MVVMApps.Views;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace MVVMApps.ViewModels
 {
@@ -40,9 +42,9 @@ namespace MVVMApps.ViewModels
 
         private async Task Add()
         {
-            var name = await App.Current.MainPage.DisplayPromptAsync("Name", "Coffee Name");
-            var roaster = await App.Current.MainPage.DisplayPromptAsync("Roaster", "Coffee Roaster");
-            try
+            //var name = await App.Current.MainPage.DisplayPromptAsync("Name", "Coffee Name");
+            //var roaster = await App.Current.MainPage.DisplayPromptAsync("Roaster", "Coffee Roaster");
+            /*try
             {
                 var newCoffee = new Coffee
                 {
@@ -58,7 +60,10 @@ namespace MVVMApps.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert("Keterangan",
                     $"Error: {ex.Message}", "OK");
-            }
+            }*/
+
+            var route = $"{nameof(AddCofeePageSQLite)}";
+            await Shell.Current.GoToAsync(route);
         }
 
         private async Task Refresh()

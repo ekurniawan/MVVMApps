@@ -18,5 +18,13 @@ namespace MVVMApps.Views
             InitializeComponent();
         }
 
+        /*private async void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            var result = ((MenuItem)sender).BindingContext as Coffee;
+            if (result == null)
+                return;
+
+            await DisplayAlert("Favorite Coffee",result.Name,"OK");
+        }*/
     }
 }

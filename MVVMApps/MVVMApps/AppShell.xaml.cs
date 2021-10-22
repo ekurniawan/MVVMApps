@@ -13,6 +13,7 @@ namespace MVVMApps
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(AddCofeePageSQLite), typeof(AddCofeePageSQLite));
+            Routing.RegisterRoute(nameof(DetailCoffeePageSQLite), typeof(DetailCoffeePageSQLite));
             //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             //Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }

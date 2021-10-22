@@ -30,14 +30,20 @@ namespace MVVMApps.ViewModels
             SelectCommand = new AsyncCommand<object>(Selected);
         }
 
-        private Task Selected(object arg)
+        private async Task Selected(object arg)
         {
-            throw new NotImplementedException();
+            var coffee = arg as Coffee;
+            if (coffee == null)
+                return;
+            var route = $"{nameof(DetailCoffeePageSQLite)}?CoffeeId={coffee.Id}";
+            await Shell.Current.GoToAsync(route);
         }
 
-        private Task Remove(Coffee arg)
+        private async Task Remove(Coffee coffee)
         {
-            throw new NotImplementedException();
+            await CoffeeSQLiteService.RemoveCoffee(coffee.Id);
+            await App.Current.MainPage.DisplayAlert("Keterangan", $"Coffee {coffee.Name} berhasil didelete", "OK");
+            await Refresh();
         }
 
         private async Task Add()

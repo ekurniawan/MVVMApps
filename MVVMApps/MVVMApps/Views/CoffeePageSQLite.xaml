@@ -5,7 +5,7 @@
              xmlns:viewmodels="clr-namespace:MVVMApps.ViewModels" 
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              Title="{Binding Title}"
-             x:Name="CoffeePage">
+             x:Name="CoffeePageSQLiteReference">
     <ContentPage.BindingContext>
         <viewmodels:CoffeeSQLiteViewModel />
     </ContentPage.BindingContext>
@@ -30,9 +30,18 @@
                   IsRefreshing="{Binding IsBusy,Mode=OneWay}"
                   RefreshCommand="{Binding RefreshCommand}"
                   RefreshControlColor="Red">
+            <ListView.Behaviors>
+                <xct:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectCommand}"
+                                            EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}" />
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Delete" 
+                             Command="{Binding Source={x:Reference CoffeePageSQLiteReference},Path=BindingContext.RemoveCommand}"
+                             CommandParameter="{Binding .}" />
+                        </ViewCell.ContextActions>
                         <Grid Padding="10">
                             <StackLayout>
                                 <Frame CornerRadius="20" HasShadow="True">

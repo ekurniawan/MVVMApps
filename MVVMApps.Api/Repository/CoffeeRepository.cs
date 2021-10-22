@@ -22,9 +22,22 @@ namespace MVVMApps.Api.Repository
             return _config.GetConnectionString("DefaultConnection");
         }
 
-        public Task Add(Coffee coffee)
+        public async Task Add(Coffee coffee)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                string strSql = @"insert into Coffee(Name,Roaster,Image) 
+                                values(@Name,@Roaster,@Image)";
+                var param = new { Name=coffee.Name,Roaster=coffee.Roaster,Image=coffee.Image };
+                try
+                {
+                    await conn.ExecuteAsync(strSql, param);
+                }
+                catch (SqlException sqlEx) 
+                { 
+                    throw new Exception(sqlEx.Message);
+                }
+            }
         }
 
         public Task Delete(string id)
@@ -56,9 +69,26 @@ namespace MVVMApps.Api.Repository
             }
         }
 
-        public Task Update(string id, Coffee coffee)
+        public async Task Update(string id, Coffee coffee)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                var result = await GetById(id);
+                if (result == null)
+                    throw new Exception($"Data coffee dengan id {id} tidak ditemukan");
+
+                string strSql = @"update Coffee set Name=@Name,Roaster=@Roaster 
+                                where Id=@Id";
+                var param = new { Name = coffee.Name, Roaster = coffee.Roaster, Id=id };
+                try
+                {
+                    await conn.ExecuteAsync(strSql, param);
+                }
+                catch (SqlException sqlEx)
+                {
+                    throw new Exception(sqlEx.Message);
+                }
+            }
         }
 
         public async Task<IEnumerable<Coffee>> GetByName(string name)

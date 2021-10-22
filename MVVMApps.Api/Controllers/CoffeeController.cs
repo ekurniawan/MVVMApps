@@ -39,5 +39,39 @@ namespace MVVMApps.Api.Controllers
             var results = await _coffeeRepo.GetByName(name);
             return results;
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Insert(Coffee coffee)
+        {
+            try
+            {
+                await _coffeeRepo.Add(coffee);
+                return Ok($"Data coffee {coffee.Name} berhasil ditambahkan");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("Hello/{id}")]
+        public string Hello(string id,string nama,string alamat)
+        {
+            return $"ID: {id} - {nama} dan {alamat}";
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(string id,Coffee coffee)
+        {
+            try
+            {
+                await _coffeeRepo.Update(id, coffee);
+                return Ok($"Data coffee id {coffee.Name} berhasil diupdate");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
      }
 }

@@ -91,10 +91,11 @@
     </Shell.FlyoutHeaderTemplate>
 
     <FlyoutItem Title="Coffee SQL" Icon="icon_about.png">
-        <ShellContent Route="CoffeeSQLPage" ContentTemplate="{DataTemplate local:CoffeePageSQLite}" />
+        <ShellContent Route="CoffeePageSQLite" 
+                      ContentTemplate="{DataTemplate local:CoffeePageSQLite}" />
     </FlyoutItem>
     <FlyoutItem Title="Coffee" Icon="icon_about.png">
-        <ShellContent Route="CoffeePage" ContentTemplate="{DataTemplate local:CoffeeEquipmentPage}" />
+        <ShellContent Route="CoffeeEquipmentPage" ContentTemplate="{DataTemplate local:CoffeeEquipmentPage}" />
     </FlyoutItem>
 
     <!-- <FlyoutItem Title="Browse" Icon="icon_feed.png">

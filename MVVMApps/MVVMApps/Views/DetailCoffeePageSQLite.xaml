@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MVVMApps.Views.DetailCoffeePageSQLite"
+             xmlns:viewmodels="clr-namespace:MVVMApps.ViewModels" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <viewmodels:DetailCoffeeSQLiteViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding RefreshCommand}" />
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Entry Text="{Binding Name}" />
+            <Entry Text="{Binding Roaster}" />
+            <Image HorizontalOptions="Center" Source="{Binding Image}" />
+            <Button Text="Done" Command="{Binding DoneCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

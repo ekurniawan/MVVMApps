@@ -27,5 +27,12 @@ namespace MVVMApps.Api.Controllers
         {
             return lstCoffee;
         }
+
+        [HttpGet("{id}")]
+        public Coffee Get(string id)
+        {
+            var result = lstCoffee.Where(c => c.Id == int.Parse(id)).FirstOrDefault();
+            return result;
+        }
     }
 }

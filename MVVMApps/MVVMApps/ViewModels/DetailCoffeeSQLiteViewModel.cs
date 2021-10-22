@@ -1,4 +1,5 @@
 ﻿using MVVMApps.Services;
+using MVVMApps.Shared.Models;
 using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,27 @@ namespace MVVMApps.ViewModels
         public string CoffeeId { get; set; }
         public AsyncCommand RefreshCommand { get; set; }
         public AsyncCommand DoneCommand { get; set; }
+        public AsyncCommand EditCommand { get; set; }
 
         public DetailCoffeeSQLiteViewModel()
         {
             Title = "Detail Coffee";
             RefreshCommand = new AsyncCommand(Refresh);
             DoneCommand = new AsyncCommand(Done);
+            EditCommand = new AsyncCommand(Edit);
+        }
+
+        private async Task Edit()
+        {
+            var editCoffee = new Coffee
+            {
+                Id = int.Parse(CoffeeId),
+                Name = Name,
+                Roaster = Roaster,
+                Image = Image
+            };
+            await CoffeeSQLiteService.EditCoffee(int.Parse(CoffeeId), editCoffee);
+            await Done();
         }
 
         private async Task Done()

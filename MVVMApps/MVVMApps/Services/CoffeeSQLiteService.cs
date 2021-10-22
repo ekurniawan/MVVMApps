@@ -39,8 +39,10 @@ namespace MVVMApps.Services
         {
             await Init();
             var result = await GetCofeeById(id);
+
+            var strSql = $"update Coffee set Name='{coffee.Name}',Roaster='{coffee.Roaster}' where Id={id}";
             if (result != null)
-                await db.UpdateAsync(coffee);
+                await db.ExecuteAsync(strSql);
             else
                 throw new Exception($"Data coffee {id} tidak ditemukan");
         }

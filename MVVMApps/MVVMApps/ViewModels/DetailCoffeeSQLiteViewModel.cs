@@ -29,10 +29,8 @@ namespace MVVMApps.ViewModels
         {
             var editCoffee = new Coffee
             {
-                Id = int.Parse(CoffeeId),
                 Name = Name,
-                Roaster = Roaster,
-                Image = Image
+                Roaster = Roaster
             };
             await CoffeeSQLiteService.EditCoffee(int.Parse(CoffeeId), editCoffee);
             await Done();

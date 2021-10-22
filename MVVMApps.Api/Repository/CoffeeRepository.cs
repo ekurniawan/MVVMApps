@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace MVVMApps.Api.Repository
 {
-    public class CoffeeRepository : ICoffee
+    public class CoffeeRepository : ICoffeeRepository
     {
         private IConfiguration _config;
         public CoffeeRepository(IConfiguration config)
@@ -33,42 +34,44 @@ namespace MVVMApps.Api.Repository
 
         public async Task<IEnumerable<Coffee>> GetAll()
         {
-            List<Coffee> lstCoffee = new List<Coffee>();
             using(SqlConnection conn = new SqlConnection(GetConnectionString()))
-            {
+            {       
                 string strSql = @"select * from Coffee 
                                   order by Name asc";
-                SqlCommand cmd = new SqlCommand(strSql, conn);
-                await conn.OpenAsync();
-                SqlDataReader dr = await cmd.ExecuteReaderAsync();
-                if (dr.HasRows)
-                {
-                    while (await dr.ReadAsync())
-                    {
-                        lstCoffee.Add(new Coffee
-                        {
-                            Id = Convert.ToInt32(dr["Id"]),
-                            Name = dr["Name"].ToString(),
-                            Roaster = dr["Roaster"].ToString()
-                        });
-                    }
-                }
-                await dr.CloseAsync();
-                await cmd.DisposeAsync();
-                await conn.CloseAsync();
-
-                return lstCoffee;
+                var results = await conn.QueryAsync<Coffee>(strSql);
+                return results;
             }
         }
 
-        public Task<Coffee> GetById(string id)
+        public async Task<Coffee> GetById(string id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                string strSql = @"select * from Coffee 
+                                  where Id=@Id";
+
+                var param = new { Id = id };
+                var result = await conn.QuerySingleOrDefaultAsync<Coffee>(strSql, param);
+                return result;
+            }
         }
 
         public Task Update(string id, Coffee coffee)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Coffee>> GetByName(string name)
+        {
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                string strSql = @"select * from Coffee 
+                                  where Name like @Name
+                                  order by Name asc";
+                var param = new { Name = $"%{name}%" };
+                var results = await conn.QueryAsync<Coffee>(strSql,param);
+                return results;
+            }
         }
     }
 }

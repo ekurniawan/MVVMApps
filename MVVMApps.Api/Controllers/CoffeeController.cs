@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MVVMApps.Api.Repository;
 using MVVMApps.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -12,27 +13,31 @@ namespace MVVMApps.Api.Controllers
     [ApiController]
     public class CoffeeController : ControllerBase
     {
-        private List<Coffee> lstCoffee;
-        public CoffeeController()
+        private ICoffeeRepository _coffeeRepo;
+        public CoffeeController(ICoffeeRepository coffeeRepo)
         {
-            lstCoffee = new List<Coffee>
-            {
-                new Coffee{Id=1,Name="Tiwus",Roaster="Dark Roasted",Image="image"},
-                new Coffee{Id=2,Name="Italian",Roaster="Dark Roasted",Image="image"}
-            };
+            _coffeeRepo = coffeeRepo;
         }
 
         [HttpGet]
-        public IEnumerable<Coffee> Get()
+        public async Task<IEnumerable<Coffee>> Get()
         {
-            return lstCoffee;
+            var results = await _coffeeRepo.GetAll();
+            return results;
         }
 
         [HttpGet("{id}")]
-        public Coffee Get(string id)
+        public async Task<Coffee> Get(string id)
         {
-            var result = lstCoffee.Where(c => c.Id == int.Parse(id)).FirstOrDefault();
+            var result = await _coffeeRepo.GetById(id);
             return result;
         }
-    }
+
+        [HttpGet("ByName/{name}")]
+        public async Task<IEnumerable<Coffee>> GetByName(string name)
+        {
+            var results = await _coffeeRepo.GetByName(name);
+            return results;
+        }
+     }
 }

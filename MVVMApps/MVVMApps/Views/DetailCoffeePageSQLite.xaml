@@ -21,7 +21,6 @@
                 <Button Text="Edit" Command="{Binding EditCommand}" />
                 <Button Text="Done" Command="{Binding DoneCommand}" />
             </StackLayout>
-            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

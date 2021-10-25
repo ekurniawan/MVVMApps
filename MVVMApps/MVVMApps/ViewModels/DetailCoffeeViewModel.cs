@@ -1,4 +1,5 @@
 ﻿using MVVMApps.Services;
+using MVVMApps.Shared.Models;
 using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace MVVMApps.ViewModels
         public string CoffeeId { get; set; }
         public AsyncCommand RefreshCommand { get; set; }
         public AsyncCommand DoneCommand { get; set; }
+        public AsyncCommand EditCommand { get; set; }
 
         private ICoffee coffeeService;
         public DetailCoffeeViewModel()
@@ -21,8 +23,21 @@ namespace MVVMApps.ViewModels
             Title = "Detail Coffee";
             RefreshCommand = new AsyncCommand(Refresh);
             DoneCommand = new AsyncCommand(Done);
+            EditCommand = new AsyncCommand(Edit);
 
             coffeeService = DependencyService.Get<ICoffee>();
+        }
+
+        private async Task Edit()
+        {
+            var editCoffee = new Coffee
+            {
+                Id = id,
+                Name = name,
+                Roaster = roaster
+            };
+            await coffeeService.EditCoffee(int.Parse(CoffeeId), editCoffee);
+            await Done();
         }
 
         private async Task Done()

@@ -41,7 +41,7 @@ namespace MVVMApps.Services
 
         public async Task EditCoffee(int id, Coffee coffee)
         {
-            var uri = new Uri($"{baseUrl}/api/Coffee{id}");
+            var uri = new Uri($"{baseUrl}/api/Coffee/{id}");
             try
             {
                 var json = JsonConvert.SerializeObject(coffee);

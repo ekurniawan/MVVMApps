@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "127338292047",
+    "project_id": "xamarinpush-1cc62",
+    "storage_bucket": "xamarinpush-1cc62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127338292047:android:2037a1f3191223084f9b3a",
+        "android_client_info": {
+          "package_name": "id.actualsolusi.xamarinpush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127338292047-bksddurm8it962c6blspnmmm5e3ectp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd0aM1jxq2Hk10i8XfyTS8Yf5LUG2rLLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127338292047-bksddurm8it962c6blspnmmm5e3ectp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

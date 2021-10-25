@@ -1,4 +1,5 @@
 ﻿
+using MVVMApps.Services;
 using MVVMApps.Views;
 using System;
 using Xamarin.Forms;
@@ -12,6 +13,9 @@ namespace MVVMApps
         public App()
         {
             InitializeComponent();
+
+            DependencyService.Register<ICoffee, CoffeeService>();
+
             MainPage = new AppShell();
         }
 

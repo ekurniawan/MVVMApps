@@ -1,11 +1,14 @@
-﻿using MVVMApps.Shared.Models;
+﻿using MVVMApps.Services;
+using MVVMApps.Shared.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
+//[assembly: Dependency(typeof(CoffeeService))]
 namespace MVVMApps.Services
 {
     public class CoffeeService : ICoffee

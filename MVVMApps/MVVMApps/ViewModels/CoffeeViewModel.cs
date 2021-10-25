@@ -19,7 +19,7 @@ namespace MVVMApps.ViewModels
         public AsyncCommand<Coffee> RemoveCommand { get; set; }
         public AsyncCommand<object> SelectCommand { get; set; }
 
-        private CoffeeService coffeeService;
+        private ICoffee coffeeService;
 
         public CoffeeViewModel()
         {
@@ -31,7 +31,7 @@ namespace MVVMApps.ViewModels
             RemoveCommand = new AsyncCommand<Coffee>(Remove);
             SelectCommand = new AsyncCommand<object>(Selected);
 
-            coffeeService = new CoffeeService();
+            coffeeService = DependencyService.Get<ICoffee>();
         }
 
         private Task Remove(Coffee arg)

@@ -49,9 +49,10 @@ namespace MVVMApps.ViewModels
             await Shell.Current.GoToAsync(route);
         }
 
-        private Task Add()
+        private async Task Add()
         {
-            throw new NotImplementedException();
+            var route = $"{nameof(AddCoffeePage)}";
+            await Shell.Current.GoToAsync(route);
         }
 
         private async Task Refresh()

@@ -40,9 +40,21 @@ namespace MVVMApps.Api.Repository
             }
         }
 
-        public Task Delete(string id)
+        public async Task Delete(string id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                string strSql = "delete from Coffee where Id=@Id";
+                var param = new { Id = id };
+                try
+                {
+                    await conn.ExecuteAsync(strSql, param);
+                }
+                catch (SqlException sqlEx)
+                {
+                    throw new Exception(sqlEx.Message);
+                }
+            }
         }
 
         public async Task<IEnumerable<Coffee>> GetAll()

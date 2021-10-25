@@ -73,5 +73,19 @@ namespace MVVMApps.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            try
+            {
+                await _coffeeRepo.Delete(id);
+                return Ok($"Data coffee dengan id {id} berhasil didelete !");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
      }
 }

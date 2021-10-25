@@ -1,5 +1,6 @@
 ﻿using MVVMApps.Services;
 using MVVMApps.Shared.Models;
+using MVVMApps.Views;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System;
@@ -39,9 +40,13 @@ namespace MVVMApps.ViewModels
             throw new NotImplementedException();
         }
 
-        private Task Selected(object arg)
+        private async Task Selected(object arg)
         {
-            throw new NotImplementedException();
+            var coffee = arg as Coffee;
+            if (coffee == null)
+                return;
+            var route = $"{nameof(DetailCoffeePage)}?CoffeeId={coffee.Id}";
+            await Shell.Current.GoToAsync(route);
         }
 
         private Task Add()

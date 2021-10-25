@@ -3,7 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MVVMApps.Views.DetailCoffeePage"
              xmlns:viewmodels="clr-namespace:MVVMApps.ViewModels" 
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <viewmodels:DetailCoffeeViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding RefreshCommand}" />
+    </ContentPage.Behaviors>
     <ContentPage.Content>
         <StackLayout Padding="20">
             <Entry Text="{Binding Name}" />
@@ -13,7 +20,6 @@
                 <Button Text="Edit" Command="{Binding EditCommand}" />
                 <Button Text="Done" Command="{Binding DoneCommand}" />
             </StackLayout>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

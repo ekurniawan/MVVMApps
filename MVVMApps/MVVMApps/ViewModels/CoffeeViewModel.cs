@@ -35,9 +35,14 @@ namespace MVVMApps.ViewModels
             coffeeService = DependencyService.Get<ICoffee>();
         }
 
-        private Task Remove(Coffee arg)
+        private async Task Remove(Coffee coffee)
         {
-            throw new NotImplementedException();
+            var result = await Application.Current.MainPage.DisplayAlert("Konfirmasi", $"Apakah data coffee {coffee.Name} yakin di delete?", "OK", "Cancel");
+            if (result)
+            {
+                await coffeeService.RemoveCoffee(coffee.Id);
+                await Refresh();
+            }
         }
 
         private async Task Selected(object arg)

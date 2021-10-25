@@ -90,6 +90,11 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
+    <FlyoutItem Title="Coffee Page" Icon="icon_about.png">
+        <ShellContent Route="CoffeePageSQLite" 
+                      ContentTemplate="{DataTemplate local:CoffeePage}" />
+    </FlyoutItem>
+
     <FlyoutItem Title="Coffee SQL" Icon="icon_about.png">
         <ShellContent Route="CoffeePageSQLite" 
                       ContentTemplate="{DataTemplate local:CoffeePageSQLite}" />

@@ -8,6 +8,9 @@
     <ContentPage.BindingContext>
         <viewmodels:CoffeeViewModel />
     </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing" Command="{Binding RefreshCommand}" />
+    </ContentPage.Behaviors>
     <ContentPage.Content>
         <StackLayout>
             <ListView
@@ -16,7 +19,7 @@
                   HasUnevenRows="True" 
                   SeparatorVisibility="None"
                   IsPullToRefreshEnabled="True"
-                  IsRefreshing="{Binding IsBusy,Mode=OneWay}"
+                  IsRefreshing="{Binding IsBusy}"
                   RefreshCommand="{Binding RefreshCommand}"
                   RefreshControlColor="Red">
                 <ListView.ItemTemplate>

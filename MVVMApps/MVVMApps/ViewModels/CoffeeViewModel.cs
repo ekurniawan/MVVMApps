@@ -57,10 +57,13 @@ namespace MVVMApps.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Keterangan",
                     "Tidak ada koneksi internet","OK");
             }
+            
             IsBusy = true;
+            await Task.Delay(1000);
             Coffee.Clear();
             var result = await coffeeService.GetCoffee();
             Coffee.AddRange(result);
+            
             IsBusy = false;
         }
     }

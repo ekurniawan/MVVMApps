@@ -20,6 +20,25 @@ namespace MVVMApps.Services
             _client = new HttpClient();
         }
 
+        public async Task AddBulk(List<Coffee> lstCoffee)
+        {
+            var uri = new Uri($"{baseUrl}/api/Coffee/InsertBulk");
+            try
+            {
+                var json = JsonConvert.SerializeObject(lstCoffee);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _client.PostAsync(uri, content);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("Gagal menambahkan data coffee");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
+        }
+
         public async Task AddCoffee(Coffee coffee)
         {
             var uri = new Uri($"{baseUrl}/api/Coffee");
@@ -38,6 +57,8 @@ namespace MVVMApps.Services
                 throw new Exception($"Error: {ex.Message}");
             }
         }
+
+        
 
         public async Task EditCoffee(int id, Coffee coffee)
         {

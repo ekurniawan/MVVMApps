@@ -15,6 +15,8 @@ namespace MVVMApps.Shared.Models
         public string Name { get; set; }
         
         public string Image { get; set; }
+
+        public bool IsSync { get; set; } 
     }
 
 

@@ -54,6 +54,20 @@ namespace MVVMApps.Api.Controllers
             }
         }
 
+        [HttpPost("InsertBulk")]
+        public async Task<ActionResult> InsertBulk(List<Coffee> lstCoffee)
+        {
+            try
+            {
+                await _coffeeRepo.AddBulk(lstCoffee);
+                return Ok($"Data insert bulk berhasil !");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("Hello/{id}")]
         public string Hello(string id,string nama,string alamat)
         {

@@ -13,5 +13,7 @@ namespace MVVMApps.Services
         Task AddCoffee(Coffee coffee);
         Task RemoveCoffee(int id);
         Task EditCoffee(int id, Coffee coffee);
+
+        Task AddBulk(List<Coffee> lstCoffee);
     }
 }

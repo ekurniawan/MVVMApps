@@ -18,6 +18,7 @@
                                IsRunning="{Binding IsBusy}"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
+
             <Button Text="Save" Padding="20,0"
                     HorizontalOptions="Center" VerticalOptions="Center"
                     IsVisible="{Binding IsNotBusy}" Command="{Binding SaveCommand}" />

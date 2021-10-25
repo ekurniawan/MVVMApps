@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using System.Text;
 
 namespace MVVMApps.Api.Repository
 {
@@ -36,6 +37,26 @@ namespace MVVMApps.Api.Repository
                 catch (SqlException sqlEx) 
                 { 
                     throw new Exception(sqlEx.Message);
+                }
+            }
+        }
+
+        public async Task AddBulk(List<Coffee> lstCoffee)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(var coffee in lstCoffee)
+            {
+                sb.Append($"insert into Coffee(Name,Roaster,Image) values('{coffee.Name}','{coffee.Roaster}','{coffee.Image}');");
+            }
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                try
+                {
+                    await conn.ExecuteAsync(sb.ToString());
+                }
+                catch (SqlException sqlEX)
+                {
+                    throw new Exception(sqlEX.Message);
                 }
             }
         }

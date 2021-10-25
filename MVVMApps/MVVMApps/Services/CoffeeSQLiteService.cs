@@ -6,13 +6,14 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-
+using Xamarin.Forms;
 
 namespace MVVMApps.Services
 {
     public static class CoffeeSQLiteService 
     {
         static SQLiteAsyncConnection db;
+        private static ICoffee coffeeService;
         static async Task Init()
         {
             if (db != null)
@@ -21,6 +22,8 @@ namespace MVVMApps.Services
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "MyData.db");
             db = new SQLiteAsyncConnection(dbPath);
             await db.CreateTableAsync<Coffee>();
+
+            coffeeService = DependencyService.Get<ICoffee>();
         }
 
         public static async Task AddCoffee(Coffee coffee)
@@ -31,9 +34,30 @@ namespace MVVMApps.Services
             {
                 Name = coffee.Name,
                 Roaster = coffee.Roaster,
-                Image = image
+                Image = image,
+                IsSync = false
             };
             await db.InsertAsync(newCoffee);
+        }
+
+        public static async Task AddSyncData()
+        {
+            await Init();
+            var strSql = "select * from Coffee where IsSync=false";
+            var results = await db.QueryAsync<Coffee>(strSql);
+            try
+            {
+                await coffeeService.AddBulk(results);
+                foreach(var coffee in results)
+                {
+                    var updateSql = $"update Coffee set IsSync=true where Id={coffee.Id}";
+                    await db.ExecuteAsync(updateSql);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public static async Task EditCoffee(int id, Coffee coffee)

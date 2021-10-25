@@ -18,6 +18,7 @@ namespace MVVMApps.ViewModels
         public AsyncCommand AddCommand { get;}
         public AsyncCommand<Coffee> RemoveCommand { get; }
         public AsyncCommand<object> SelectCommand { get; set; }
+        public AsyncCommand SyncCommand { get; set; }
 
         public CoffeeSQLiteViewModel()
         {
@@ -28,6 +29,13 @@ namespace MVVMApps.ViewModels
             AddCommand = new AsyncCommand(Add);
             RemoveCommand = new AsyncCommand<Coffee>(Remove);
             SelectCommand = new AsyncCommand<object>(Selected);
+            SyncCommand = new AsyncCommand(Sync);
+        }
+
+        private async Task Sync()
+        {
+            await CoffeeSQLiteService.AddSyncData();
+            await Application.Current.MainPage.DisplayAlert("Keterangan", "Sync Data Berhasil", "OK");
         }
 
         private async Task Selected(object arg)

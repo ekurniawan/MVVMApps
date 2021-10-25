@@ -20,6 +20,7 @@
     <StackLayout>
         <StackLayout Orientation="Horizontal">
             <Button Text="Add Coffee" Command="{Binding AddCommand}" />
+            <Button Text="Sync Data" Command="{Binding SyncCommand}" />
         </StackLayout>
         <ListView
                   BackgroundColor="Transparent" 

@@ -65,8 +65,9 @@ namespace MVVMApps.ViewModels
             var current = Connectivity.NetworkAccess;
             if (current != NetworkAccess.Internet)
             {
-                await Application.Current.MainPage.DisplayAlert("Keterangan",
-                    "Tidak ada koneksi internet","OK");
+                /*await Application.Current.MainPage.DisplayAlert("Keterangan",
+                    "Tidak ada koneksi internet","OK");*/
+
             }
             
             IsBusy = true;

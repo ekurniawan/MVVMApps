@@ -15,5 +15,7 @@ namespace MVVMApps.Api.Repository
         Task Delete(string id);
 
         Task<IEnumerable<Coffee>> GetByName(string name);
+
+        Task AddBulk(List<Coffee> lstCoffee);
     }
 }

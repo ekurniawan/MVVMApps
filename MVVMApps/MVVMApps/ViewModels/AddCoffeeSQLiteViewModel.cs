@@ -12,11 +12,14 @@ namespace MVVMApps.ViewModels
     public class AddCoffeeSQLiteViewModel : ViewModelBase
     {
         public AsyncCommand SaveCommand { get; set; }
+
         public AddCoffeeSQLiteViewModel()
         {
             Title = "Add Coffee SQL";
             SaveCommand = new AsyncCommand(Save);
         }
+
+
 
         private async Task Save()
         {

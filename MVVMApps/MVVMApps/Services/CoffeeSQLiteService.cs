@@ -13,7 +13,7 @@ namespace MVVMApps.Services
     public static class CoffeeSQLiteService 
     {
         static SQLiteAsyncConnection db;
-        private static ICoffee coffeeService;
+        
         static async Task Init()
         {
             if (db != null)
@@ -22,8 +22,6 @@ namespace MVVMApps.Services
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "MyData.db");
             db = new SQLiteAsyncConnection(dbPath);
             await db.CreateTableAsync<Coffee>();
-
-            coffeeService = DependencyService.Get<ICoffee>();
         }
 
         public static async Task AddCoffee(Coffee coffee)
@@ -40,15 +38,21 @@ namespace MVVMApps.Services
             await db.InsertAsync(newCoffee);
         }
 
-        public static async Task AddSyncData()
+        public static async Task<IEnumerable<Coffee>> GetNotSyncData()
         {
             await Init();
             var strSql = "select * from Coffee where IsSync=false";
             var results = await db.QueryAsync<Coffee>(strSql);
+            return results;
+        }
+
+        public static async Task UpdateSync()
+        {
+            await Init();
             try
             {
-                await coffeeService.AddBulk(results);
-                foreach(var coffee in results)
+                var results = await GetNotSyncData();
+                foreach (var coffee in results)
                 {
                     var updateSql = $"update Coffee set IsSync=true where Id={coffee.Id}";
                     await db.ExecuteAsync(updateSql);

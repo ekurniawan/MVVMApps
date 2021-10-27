@@ -1,18 +1,12 @@
-﻿using Android.App;
-using Android.Content;
+﻿using System;
+using Android.App;
 using Android.OS;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Plugin.FirebasePushNotification;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MVVMApps.Droid
 {
-    [Application]
+    [Application(UsesCleartextTraffic = true)]
     public class MainApplication : Application
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer) : base(handle, transer)

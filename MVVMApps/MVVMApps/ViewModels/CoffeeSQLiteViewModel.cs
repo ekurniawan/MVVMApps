@@ -5,6 +5,7 @@ using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -20,6 +21,8 @@ namespace MVVMApps.ViewModels
         public AsyncCommand<object> SelectCommand { get; set; }
         public AsyncCommand SyncCommand { get; set; }
 
+        private ICoffee coffeeService;
+
         public CoffeeSQLiteViewModel()
         {
             Title = "Coffee SQLite";
@@ -30,11 +33,16 @@ namespace MVVMApps.ViewModels
             RemoveCommand = new AsyncCommand<Coffee>(Remove);
             SelectCommand = new AsyncCommand<object>(Selected);
             SyncCommand = new AsyncCommand(Sync);
+
+            coffeeService = DependencyService.Get<ICoffee>();
         }
 
         private async Task Sync()
         {
-            await CoffeeSQLiteService.AddSyncData();
+            var results = (await CoffeeSQLiteService.GetNotSyncData()).ToList();
+            await coffeeService.AddBulk(results);
+            await CoffeeSQLiteService.UpdateSync();
+            
             await Application.Current.MainPage.DisplayAlert("Keterangan", "Sync Data Berhasil", "OK");
         }
 

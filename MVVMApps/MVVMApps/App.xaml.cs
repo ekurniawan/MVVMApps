@@ -1,5 +1,4 @@
-﻿
-using MVVMApps.Services;
+﻿using MVVMApps.Services;
 using MVVMApps.Views;
 using Plugin.FirebasePushNotification;
 using System;
@@ -16,7 +15,7 @@ namespace MVVMApps
             InitializeComponent();
 
             DependencyService.Register<ICoffee, CoffeeService>();
-
+            
             MainPage = new AppShell();
 
             CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
